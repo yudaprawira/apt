@@ -1,0 +1,25 @@
+{
+    "name": "Pelanggan",
+    "alias": "pelanggan",
+    "description": "Mengelola data pelanggan",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Pelanggan\\Providers\\SP"
+    ],
+    "aliases": [],
+    "files": [
+        "start.php"
+    ],
+    "requires": [],
+    "author": {
+        "name": "Yuda Prawira",
+        "site": "http:\/\/yuda.tk"
+    },
+    "info": {
+        "version": 1,
+        "date": "2017-08-07 05:53:13",
+        "changelog": ""
+    }
+}

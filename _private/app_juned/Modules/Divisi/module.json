@@ -1,0 +1,25 @@
+{
+    "name": "Divisi",
+    "alias": "divisi",
+    "description": "Mengelola data divisi",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Divisi\\Providers\\SP"
+    ],
+    "aliases": [],
+    "files": [
+        "start.php"
+    ],
+    "requires": [],
+    "author": {
+        "name": "Yuda Prawira",
+        "site": "http:\/\/yuda.tk"
+    },
+    "info": {
+        "version": 1,
+        "date": "2017-08-10 14:02:27",
+        "changelog": ""
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "Pustaka Gambar",
+    "alias": "pustaka-gambar",
+    "description": "Mengelola pustaka gambar",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\PustakaGambar\\Providers\\SP"
+    ],
+    "aliases": [],
+    "files": [
+        "start.php"
+    ],
+    "requires": [],
+    "author": {
+        "name": "Yuda Prawira",
+        "site": "http:\/\/yuda.tk"
+    },
+    "info": {
+        "version": 1,
+        "date": "2017-04-27 06:14:46",
+        "changelog": ""
+    }
+}
