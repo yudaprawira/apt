@@ -2,7 +2,7 @@
 
 //$baseUrl = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].'/'.(explode('/', $_SERVER['PHP_SELF'])[1]);
 
-$baseUrl = 'http://localhost/juned/';
+$baseUrl = 'http://juned.sidang.ga/';
 
 return [
     
