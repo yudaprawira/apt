@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => 'smtp.mail.yahoo.com', //env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => 'smtp.gmail.com', //env('MAIL_HOST', 'smtp.mailgun.org'),
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'port' => '465',//env('MAIL_PORT', 587),
+    'port' => '587',//env('MAIL_PORT', 587),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => 'yuda.prawira4@yahoo.com',//env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'address' => 'yuda.juara@gmail.com',//env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         'name' => 'Sistem',//env('MAIL_FROM_NAME', 'Example'),
     ],
 
@@ -71,7 +71,7 @@ return [
     |
     */
 
-    'encryption' => 'ssl',// env('MAIL_ENCRYPTION', 'tls'),
+    'encryption' => 'ssl' env('MAIL_ENCRYPTION', 'tls'),
 
     /*
     |--------------------------------------------------------------------------
@@ -84,7 +84,7 @@ return [
     |
     */
 
-    'username' => 'yuda.prawira4@yahoo.com',//env('MAIL_USERNAME'),
+    'username' => 'yuda.juara@gmail.com',//env('MAIL_USERNAME'),
 
     'password' => '7755353@tlprmhku',//env('MAIL_PASSWORD'),
 
