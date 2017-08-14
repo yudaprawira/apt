@@ -81,6 +81,7 @@ Route::group(['prefix' => config('app.backend')], function()
         Route::match(['GET', 'POST'], '/', 'BE\SystemController@user');
         Route::match(['GET', 'POST'], '/trash', 'BE\SystemController@userTrash');
         Route::post('/save', 'BE\SystemController@saveUser');
+        Route::get('/lookup', 'BE\SystemController@lookupUser');
         Route::get('/edit/{id}', 'BE\SystemController@buildFormUser')->where('id', '[0-9]+');
         Route::get('/restore/{id}', 'BE\SystemController@restoreUser')->where('id', '[0-9]+');
         Route::get('/delete/{id}', 'BE\SystemController@deleteUser')->where('id', '[0-9]+');

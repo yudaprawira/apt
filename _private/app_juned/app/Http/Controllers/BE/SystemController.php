@@ -447,6 +447,19 @@ class SystemController extends BaseController
         }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | LOOKUP
+    |--------------------------------------------------------------------------
+    */
+    public function lookupUser()
+    {
+        if ( input::has('q') )
+        {
+            return Response()->json(User::where('status', '1')->where('username', 'LIKE', '%'.input::get('q').'%')->select('id', 'username as name')->get());
+        }
+    }
+
     public function userTrash()
     {
         return $this->user(true);

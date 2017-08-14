@@ -12,11 +12,3 @@ Route::group(['middleware' => 'web', 'prefix' => config('app.backend').'/'.$info
     Route::get('/restore/{id}', 'BeController@restore')->where('id', '[0-9]+');
     Route::post('/save', 'BeController@save'); 
 });
-
-
-//FRONT END
-Route::group(['middleware'=>'cached', 'prefix' => $info['alias'], 'namespace' => 'Modules\Perbaikan\Http\Controllers'], function()
-{
-    Route::get('/', 'FeController@index');
-    Route::get('/{url}.html', 'FeController@index')->where('url', '[a-z0-9\-\_\+]+');
-});

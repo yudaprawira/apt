@@ -4,12 +4,15 @@ namespace Modules\Pengadaan\Http\Controllers;
 use Illuminate\Routing\Controller,
     App\Http\Controllers\BE\BaseController,
     Modules\Pengadaan\Models\Pengadaan,
+    Modules\Pengadaan\Models\Penanganan,
     Yajra\Datatables\Datatables;
 
 use Input, Session, Request, Redirect;
 
 class BeController extends BaseController
 {
+    var $type = 'PENGADAAN';
+
     function __construct() {
         parent::__construct();
     }
@@ -36,7 +39,6 @@ class BeController extends BaseController
 
             return Datatables::of($rows)
             ->addColumn('action', function ($r) use ($isTrash) { return $this->_buildAction($r->id, $r->judul, 'default', $isTrash); })
-            ->editColumn('judul', function ($r) { return createLink( url(config('pengadaan.info.alias').'/'.$r->url.'.html'), $r->judul ); })
             ->editColumn('status', function ($r) { return $r->status=='1' ? trans('global.active') : trans('global.inactive'); })
             ->editColumn('created_at', function ($r) { return formatDate($r->created_at, 5); })
             ->editColumn('updated_at', function ($r) { return $r->updated_at ? formatDate($r->updated_at, 5) : '-'; })
@@ -56,7 +58,7 @@ class BeController extends BaseController
     */
     public function form($id='')
     {
-        $data = $id ? Pengadaan::find($id) : null;
+        $data = $id ? Pengadaan::with('relpenanganan')->find($id) : null;
         
         $this->dataView['dataForm'] = $data ? $data->toArray() : []; 
         
@@ -100,15 +102,34 @@ class BeController extends BaseController
     {
         $input  = Input::except('_token');
         
-        $input['url'] = str_slug(trim($input['judul']));
         $input['status'] = val($input, 'status') ? 1 : 0;
+        $teknisi = val($input, 'id_teknisi'); unset($input['id_teknisi']);
+        
+        //FORMAT DATE
+        foreach( ['tgl_selesai','tgl_permintaan'] as $t )
+        {
+            $input[$t] = $input[$t] && trim($input[$t]) ? date("Y-m-d H:i:s", strtotime($input[$t])) : NULL;
+        }
 
         $status = $this->_saveData( new Pengadaan(), [   
             //VALIDATOR
             "judul" => "required|unique:mod_pengadaan". ($input['id'] ? ",judul,".$input['id'] : '')
         ], $input, 'judul');
 
-        $this->clearCache( config('pengadaan.info.alias').'/'.$input['url'].'.html' );
+        //Teknisi
+        if ( $status && $teknisi )
+        {
+            //delete Old teknisi
+            Penanganan::where('id_permintaan', $status)->where('tipe', $this->type)->delete();
+
+            $dataTeknisi = [];
+
+            foreach( explode(',', $teknisi) as $t )
+            {
+                $dataTeknisi[] = ['id_permintaan'=>$status, 'id_user'=>$t, 'tipe'=>$this->type];
+            }
+            Penanganan::insert($dataTeknisi);
+        }
 
         return Redirect( BeUrl( config('pengadaan.info.alias') .(!$status ? ($input['id']?'/edit/'.$input['id']:'/add') : '') ) );
     }
