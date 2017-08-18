@@ -17,10 +17,19 @@ class DashboardController extends BaseController
     
     function homepage()
     {
-        $this->dataView['totalMember'] = formatNumber(0);
-        $this->dataView['totalBook'] = formatNumber(0);
-        $this->dataView['totalRating'] = formatNumber(0);
-        $this->dataView['totalTransaksi'] = formatNumber(0);
+        $totalPending = \Modules\Pengadaan\Models\Pengadaan::where('status', '1')->where('status_kerja', 'PENDING')->count();
+        $totalPending+= \Modules\Perbaikan\Models\Perbaikan::where('status', '1')->where('status_kerja', 'PENDING')->count();
+
+        $totalProgress = \Modules\Pengadaan\Models\Pengadaan::where('status', '1')->where('status_kerja', 'PROGRESS')->count();
+        $totalProgress+= \Modules\Perbaikan\Models\Perbaikan::where('status', '1')->where('status_kerja', 'PROGRESS')->count();
+        
+        $totalSelesai = \Modules\Pengadaan\Models\Pengadaan::where('status', '1')->where('status_kerja', 'SELESAI')->count();
+        $totalSelesai+= \Modules\Perbaikan\Models\Perbaikan::where('status', '1')->where('status_kerja', 'SELESAI')->count();
+        
+        $this->dataView['totalPengadaan'] = formatNumber(\Modules\Pengadaan\Models\Pengadaan::where('status', '1')->count());
+        $this->dataView['totalPerbaikan'] = formatNumber(\Modules\Perbaikan\Models\Perbaikan::where('status', '1')->count());
+        $this->dataView['totalProgress'] = formatNumber($totalProgress);
+        $this->dataView['totalSelesai'] = formatNumber($totalSelesai);
         
         return view($this->tmpl . 'dashboard.default', $this->dataView);
         
