@@ -11,8 +11,19 @@
                   
                   <form method="POST" action="{{ BeUrl(config('pengadaan.info.alias').'/save') }}">
                     
-                    <div class="form-group has-feedback">
-                        <input type="checkbox" name="status" {{ isset($dataForm['status']) ? (val($dataForm, 'status')=='1' ? 'checked' : '') : 'checked' }} /> {{ trans('global.status_active') }}
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group has-feedback">
+                                <input type="checkbox" name="status" {{ isset($dataForm['status']) ? (val($dataForm, 'status')=='1' ? 'checked' : '') : 'checked' }} /> {{ trans('global.status_active') }}
+                            </div>
+                        </div>
+                        @foreach( Modules\Divisi\Models\Divisi::where('status', '1')->where('nama', '<>', 'UMUM')->get() as $d )
+                        <div class="col-md-2">
+                            <div class="form-group has-feedback">
+                                <input type="checkbox" value="{{ val($d, 'nama') }}" name="jenis_permintaan[]" {{ isset($dataForm['jenis_permintaan']) ? (in_array(val($d, 'nama'), explode(',', val($dataForm, 'jenis_permintaan'))) ? 'checked' : '') : 'checked' }} /> {{ val($d, 'nama') }}
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
 
                     <div class="row">
@@ -23,25 +34,11 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group has-feedback">
-                                <label>Pelanggan</label>
-                                <input type="text" class="form-control" id="id_pelanggan" name="id_pelanggan" value="{{ val($dataForm, 'id_pelanggan') }}" data-populated="{{ val($dataForm, 'id_pelanggan') ? formatTokenInput(\Modules\Pelanggan\Models\Pelanggan::where('status', 1)->whereIn('id', explode(',', val($dataForm, 'id_pelanggan')))->get(), 'id', 'nama') : '{}' }}" data-source="{{ BeUrl(config('pelanggan.info.alias').'/lookup') }}" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group has-feedback">
-                                <label>Teknisi</label>
-                                <input type="text" class="form-control" id="id_teknisi" name="id_teknisi" data-populated="{{ val($dataForm, 'relpenanganan') ? formatTokenInput(val($dataForm, 'relpenanganan'), 'id', 'username') : '{}' }}" data-source="{{ BeUrl('system-user/lookup') }}" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group has-feedback">
                                         <label>Tanggal Permintaan</label>
-                                        <input type="text" class="form-control tDate" name="tgl_permintaan" maxlength="20" value="{{ formatDate(val($dataForm, 'tgl_permintaan'), 2) }}" />
+                                        <input type="text" class="form-control tDateTime" name="tgl_permintaan" maxlength="20" value="{{ formatDate(val($dataForm, 'tgl_permintaan'), 6) }}" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -57,9 +54,23 @@
                                 <div class="col-md-4">
                                     <div class="form-group has-feedback">
                                         <label>Tanggal Selesai</label>
-                                        <input type="text" class="form-control tDate" name="tgl_selesai" maxlength="20" value="{{ val($dataForm, 'tgl_selesai') ? formatDate(val($dataForm, 'tgl_selesai'), 2) : '' }} " />
+                                        <input type="text" class="form-control tDateTime" name="tgl_selesai" maxlength="20" value="{{ val($dataForm, 'tgl_selesai') ? formatDate(val($dataForm, 'tgl_selesai'), 6) : '' }} " />
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback">
+                                <label>Pelanggan</label>
+                                <input type="text" class="form-control" id="id_pelanggan" name="id_pelanggan" value="{{ val($dataForm, 'id_pelanggan') }}" data-populated="{{ val($dataForm, 'id_pelanggan') ? formatTokenInput(\Modules\Pelanggan\Models\Pelanggan::where('status', 1)->whereIn('id', explode(',', val($dataForm, 'id_pelanggan')))->get(), 'id', 'nama') : '{}' }}" data-source="{{ BeUrl(config('pelanggan.info.alias').'/lookup') }}" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback">
+                                <label>Teknisi</label>
+                                <input type="text" class="form-control" id="id_teknisi" name="id_teknisi" data-populated="{{ val($dataForm, 'relpenanganan') ? formatTokenInput(val($dataForm, 'relpenanganan'), 'id', 'username') : '{}' }}" data-source="{{ BeUrl('system-user/lookup') }}" />
                             </div>
                         </div>
                     </div>
@@ -105,18 +116,20 @@ tinymce.init({
     height: 300,
     theme: 'modern', 
     plugins: [
-        'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-        'searchreplace wordcount visualblocks visualchars code fullscreen',
-        'insertdatetime media nonbreaking save table contextmenu directionality',
-        'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+        'lists link image',
+        'searchreplace wordcount visualblocks visualchars fullscreen',
+        'media',
+        'paste textcolor colorpicker textpattern imagetools'
     ],
-    toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-    toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
+    toolbar1: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist forecolor backcolor | link image',
     image_advtab: true,
     content_css: [
         '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
         '//www.tinymce.com/css/codepen.min.css'
-    ] 
+    ],
+    //autoresize_bottom_margin: 50,
+    menubar:false,
+    statusbar: false,
 });
 </script>
 @endpush

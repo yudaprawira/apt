@@ -112,6 +112,7 @@ class BaseController extends Controller
             session::put('ses_level_name', $level->name);
             session::put('ses_level_url', str_slug($level->name));
             session::put('ses_is_superadmin', (str_slug($level->name)=='super-admin' ? true : false));
+            session::put('ses_is_teknisi', (str_slug($level->name)=='teknisi' ? true : false));
 
             //get level menu access
             $access = getRowArray(Access::where('level_id', $obj->level_id)->get(), 'menu_id', 'menu_id');

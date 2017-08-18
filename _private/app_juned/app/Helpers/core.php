@@ -180,6 +180,7 @@ function formatDate($fullDate=null, $format=1)
         case 3 : $ret = $date.' '. trans('global.month_short')[$month-1].' '.$year; break; //d month year (indo) LONG
         case 4 : $ret = trans('global.month_long')[$month-1].' '.$year; break; //d month year (indo) LONG
         case 5 : $ret = $date.' '. trans('global.month_long')[$month-1].' '.$year .' ' .date("H:i:s", strtotime($fullDate)); break; //d month year (indo) LONG
+        case 6 : $ret = date("d M Y H:i", strtotime($fullDate)); break; //d month year
         default : $ret = $fullDate; break; //Y-m-d
     }
     

@@ -13,7 +13,7 @@ class Pengadaan extends Model
      */
     protected $table = 'mod_pengadaan';
 
-    protected $fillable = ['judul', 'tgl_permintaan', 'id_pelanggan', 'permintaan', 'status_kerja', 'tgl_selesai', 'id_user', 'keterangan', 'status', 'created_by', 'updated_by'];
+    protected $fillable = ['judul', 'tgl_permintaan', 'id_pelanggan', 'permintaan', 'status_kerja', 'tgl_selesai', 'id_user', 'keterangan', 'jenis_permintaan', 'status', 'created_by', 'updated_by'];
 
     function relpenanganan()
     {

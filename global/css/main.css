@@ -307,3 +307,7 @@ textarea {
     background: url('../images/bullet/red.gif') no-repeat;
     background-size: 30px;
 }
+
+.tDateTime{
+    padding-right: 0!important;
+}

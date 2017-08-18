@@ -11,6 +11,11 @@ $(document).ready(function() {
             'format': 'dd M yyyy',
         });
     }
+    if ($('.tDateTime').length > 0) {
+        $('.tDateTime').datetimepicker({
+            'format': 'd M Y H:i',
+        });
+    }
 
     //Time
     if ($('.timepicker').length > 0) {

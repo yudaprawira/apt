@@ -64,7 +64,7 @@ class BeController extends BaseController
         
         $this->dataView['dataForm']['form_title'] = $data ? trans('global.form_edit') : trans('global.form_add');
 
-        return view('perbaikan::form', $this->dataView);
+        return view('perbaikan::form'.(session::get('ses_is_teknisi')?'_teknisi':''), $this->dataView);
     }
 
     /*
@@ -108,8 +108,18 @@ class BeController extends BaseController
         //FORMAT DATE
         foreach( ['tgl_selesai','tgl_permintaan'] as $t )
         {
-            $input[$t] = $input[$t] && trim($input[$t]) ? date("Y-m-d H:i:s", strtotime($input[$t])) : NULL;
+            if ( val($input, $t) )
+            {
+                $input[$t] = $input[$t] && trim($input[$t]) ? date("Y-m-d H:i:s", strtotime($input[$t])) : NULL;
+            }
         }
+
+        //jenis_permintaan
+        if ( val($input, 'jenis_permintaan') )
+        {
+            $input['jenis_permintaan'] = implode(',', $input['jenis_permintaan']);
+        }
+
 
         $status = $this->_saveData( new Perbaikan(), [   
             //VALIDATOR

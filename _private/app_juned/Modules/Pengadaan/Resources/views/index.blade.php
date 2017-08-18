@@ -10,7 +10,9 @@
                     <a href="{{ BeUrl(config('pengadaan.info.alias')) }}" class="{{ $isTrash ? '' : 'active'}}">{{ trans('global.all') }} <span>({{$countAll}})</span></a> | 
                     <a href="{{ BeUrl(config('pengadaan.info.alias').'/trash') }}" class="{{ $isTrash ? 'active' : ''}}">{{ trans('global.trash') }} <span>({{$countTrash}})</span></a>
                   </div>
+                  @if( !session::get('ses_is_teknisi') )
                   <a href="{{ BeUrl(config('pengadaan.info.alias').'/add?'.time()) }}" class="btn btn-primary btn-flat btn-add pull-right">{{ trans('global.add') }} {{ config('pengadaan.info.name') }} </a>
+                  @endif
                 </div><!-- /.box-header -->
                 <div class="box-body no-padding">
                   <table class="table table-striped table-bordered" id="list-table" data-url="{{ BeUrl(config('pengadaan.info.alias').($isTrash ? '/trash' : '')) }}" data-token="{{ csrf_token() }}" data-responsive="1" data-fixedheader="1">
@@ -18,7 +20,7 @@
                     <tr>
                       <th data-sort="1" data-search="1" data-column="id" style="width: 10px">ID</th>
                       <th data-sort="1" data-search="1" data-column="judul">{{ trans('pengadaan::global.judul') }}</th>
-                      <th data-sort="1" data-search="1" data-column="status" class="col-md-1 nowrap">{{ trans('global.status') }}</th>
+                      <th data-sort="1" data-search="1" data-column="status_kerja" class="col-md-1 nowrap">{{ trans('global.status') }}</th>
                       <th data-sort="1" data-search="1" data-column="created_at" class="col-md-1 nowrap">{{ trans('pengadaan::global.created_at') }}</th>
                       <th data-sort="1" data-search="1" data-column="updated_at" class="col-md-1 nowrap">{{ trans('pengadaan::global.updated_at') }}</th>
                       <th data-sort="0" data-search="0" data-column="action" style="width: 90px;white-space: nowrap;">{{ trans('global.action') }}</th>

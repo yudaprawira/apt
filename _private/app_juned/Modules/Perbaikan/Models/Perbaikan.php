@@ -13,7 +13,7 @@ class Perbaikan extends Model
      */
     protected $table = 'mod_perbaikan';
 
-    protected $fillable = ['judul', 'tgl_permintaan', 'id_pelanggan', 'permintaan', 'status_kerja', 'tgl_selesai', 'id_user', 'keterangan', 'status', 'created_by', 'updated_by'];
+    protected $fillable = ['judul', 'tgl_permintaan', 'id_pelanggan', 'jenis_permintaan', 'permintaan', 'status_kerja', 'tgl_selesai', 'id_user', 'keterangan', 'status', 'created_by', 'updated_by'];
 
     function relpenanganan()
     {

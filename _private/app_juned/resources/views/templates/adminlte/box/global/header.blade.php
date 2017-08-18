@@ -17,14 +17,14 @@
           <!-- Messages: style can be found in dropdown.less-->
           <!-- User Account: style can be found in dropdown.less -->
           <li class="notifications-menu">
-            <a href="#">
-              {{ session::get('ses_username') }}
+            <a href="{{ url('logout') }}">
+              [{{ session::get('ses_username') }} - {{ strtoupper(session::get('ses_level_name')) }}] LOGOUT
             </a>
           </li>
-          <!-- Control Sidebar Toggle Button -->
+          <!-- Control Sidebar Toggle Button 
           <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
+          </li>-->
         </ul>
       </div>
     </nav>
